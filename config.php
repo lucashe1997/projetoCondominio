@@ -15,4 +15,5 @@ mysqli_query($conn,"SET NAMES 'utf8'");
 mysqli_query($conn,'SET character_set_connection=utf8');
 mysqli_query($conn,'SET character_set_client=utf8');
 mysqli_query($conn,'SET character_set_results=utf8');
+setlocale(LC_ALL, "pt_BR", "pt_BR.iso-8859-1", "pt_BR.utf-8", "portuguese");
 ?>
