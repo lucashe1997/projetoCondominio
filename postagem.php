@@ -97,34 +97,41 @@
 				echo strftime("%d de %b de %Y", $timestamp);
 				echo '</small></br></div><div class="panel-body">';
 				?>
-				<?php 
- 
-				if(isset($_POST['submit'])) 
-				{
-				$texto = $_POST['comentario'];
-				
-				$newcomentario = "INSERT INTO postagens_comentarios (ID, texto, data, dequem,postID)
-				VALUES (NULL, '$texto', DEFAULT, '$login_userID', '$postagemID')";
-
-				if (mysqli_query($conn, $newcomentario)) {
-					echo '<br><div class="alert alert-success alert-dismissable">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Sucesso!</strong> Novo comentário criada com sucesso.
-</div>';
-				} else {
-					echo '<br><div class="alert alert-danger alert-dismissable">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Erro!</strong> Houve um erro ao enviar o comentário.
-</div>';
-				}
-				}
-				?>
 				<form method="post" action="<?php echo $_SERVER['PHP_SELF'].'?postid='.$postagemID; ?>"><div class="input-group">
 				  <input name="comentario" type="text" class="form-control" placeholder="Comentar..."required>
 				  <span class="input-group-btn">
 					<button class="btn btn-default" type="submit" name="submit">Enviar</button>
 				  </span>
 				</div></form>
+				<?php 
+ //criar comentario
+				if(isset($_POST['submit'])){
+				$texto = $_POST['comentario'];
+				$newcomentario = "INSERT INTO postagens_comentarios (ID, texto, data, dequem,postID)
+				VALUES (NULL, '$texto', DEFAULT, '$login_userID', '$postagemID')";
+				if (mysqli_query($conn, $newcomentario)) {
+					echo '<br><div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Sucesso!</strong> Novo comentário criada com sucesso.
+</div>';
+				}else{
+					echo '<br><div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Erro!</strong> Houve um erro ao enviar o comentário.
+</div>';
+				}}
+//remove comentario
+				if(isset($_POST['multi'])) 
+		{
+			$multi = $_POST['multi'];
+			$sql = "DELETE FROM postagens_comentarios WHERE id= ".$multi."";
+			if (mysqli_query($conn, $sql)) {
+		echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Sucesso!</strong> Mensagem apagada com sucesso.
+</div>';
+		}}
+				?>
 				<?php
 				$comment = mysqli_query($conn,"SELECT * FROM postagens_comentarios WHERE postID='$postagemID' ORDER BY data DESC");
 				$count = mysqli_num_rows($comment);
@@ -133,8 +140,14 @@
 					$row = mysqli_fetch_row($comment);
 					$rowuser = mysqli_fetch_row(mysqli_query($conn,"SELECT * FROM user WHERE ID='$row[3]'"));
 					echo '<div class=" panel">';
-					echo '<div class="panel-body"><p>';
+					echo '<div class="panel-body "><p>';
+					if($row[3] == $login_userID){
+						echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'?postid='.$postagemID.'">
+				<button onClick=\'javascript: return confirm("Você quer apagar o comentário?");\' class="close" type="submit" name="multi" value="'.$row['0'].'"><span aria-hidden="true">&times;</span></button>
+				</form>';
+					}
 					echo '<b>'.$rowuser[1].' diz:</br></b>';
+					
 					echo	$row[1];
 					echo	'</p>';
 
@@ -150,12 +163,8 @@
 				?>
             </div>
 			
-			<div class="col-md-3 mbhidden">
-                <div class="panel panel-default">
-                    <a href="#" class="list-group-item">Mensagens<span class="close glyphicon glyphicon-comment" aria-hidden="true"></span></a>
-                    <a href="votacao.php" class="list-group-item">Votações<span class="close glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>
-                    <a href="#" class="list-group-item">Sugestões / Reclamações<span class="close glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a>
-                </div>
+			<div class="col-md-3">
+				<!-- coluna da direita-->
             </div>
 
         </div>

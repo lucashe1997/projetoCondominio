@@ -1,17 +1,4 @@
 <?php 
-		///apagar mensagem
-	if(isset($_POST['multi'])) 
-		{
-			$multi = $_POST['multi'];
-			$sql = "DELETE FROM mensagem WHERE id= ".$multi."";
-			if (mysqli_query($conn, $sql)) {
-		echo '<div class="alert alert-success alert-dismissable">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Sucesso!</strong> Mensagem apagada com sucesso.
-</div>';
-		}}
-?>	
-<?php 
 	
 	$check_msg = "SELECT id FROM mensagem WHERE id_user='$login_session'"; 	//select rows messagem
 	$result = mysqli_query($conn,$check_msg);		//select rows messagem
@@ -21,13 +8,14 @@
 	for($count=0;$count<$result;$count++){
 		$row = mysqli_fetch_row($tituloPost);
 		$resposta = mysqli_query($conn,"SELECT * FROM mensagem_resposta WHERE id_msg='$row[0]' ORDER BY data DESC");
+		if($row[6] == 0){
 		$countr = mysqli_num_rows($resposta);
 		if($countr>0){$status='success';$statusIcon='ok';}else{$status='warning';$statusIcon='hourglass';}
 		
 		echo '<div class="panel panel-'.$status.'">
 				<div class="panel-heading" role="tab" id="heading'.$row[0].'">
-				<form method="POST" action="'?><?php echo $_SERVER['PHP_SELF']; ?><?php echo '">
-				<button class="close glyphicon glyphicon-trash" aria-label="Close" type="submit" name="multi" value="'?><?php echo $row['0'] ?><?php echo '"><span aria-hidden="true"></span></button>
+				<form method="POST" action="'.$_SERVER['PHP_SELF'].'">
+				<button onClick=\'javascript: return confirm("Você quer apagar a mensagem?");\' class="close glyphicon glyphicon-trash" aria-label="Close" type="submit" name="multi" value="'.$row['0'].'"><span aria-hidden="true"></span></button>
 				</form>
 					<h3 class="panel-title">';
 		echo '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$row[0].'" aria-expanded="true" aria-controls="collapse'.$row[0].'">';
@@ -64,6 +52,6 @@
 //		echo date("d-m-Y", $timestamp);
 //		echo '</div></div>';		
 		echo '</div></div>';		
-	} 
+	} }
 	echo '</div>';
 	?>

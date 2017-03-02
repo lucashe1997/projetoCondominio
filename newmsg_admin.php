@@ -22,7 +22,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+<body>
 	  <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -31,7 +31,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand"><?php echo $login_session;?> - Eco One Araucárias</a>
+          <a class="navbar-brand"><?php echo $login_session; ?> - Eco One Araucárias</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -44,92 +44,107 @@
       </div>
     </nav>
     <div class="container">
-
-      <div class="row">
-
             <div class="col-md-3">
-				<div class="logo">
-					<img src="images/logo.png"/>
+				<div class="panel panel-body">
+					<ul class="nav nav-pills nav-stacked">
+					<li role="presentation"><a href="index.php">Inicio</a></li>
+					<li role="presentation"><a href="index.php">Mensagens<span class="close glyphicon glyphicon-comment" aria-hidden="true"></span></a></li>
+					<li role="presentation"><a href="votacao.php">Votações<span class="close glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a></li>
+					<li role="presentation"><a href="calendario.php">Calendário<span class="close glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
+					<li role="presentation"><a href="#">Salão de Festas</a></li>
+					<li role="presentation"><a href="#">Churrasqueira</a></li>
+					<li role="presentation" class="active"><a href="newmsg.php">Sugestões / Reclamações<span class="close glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a></li>
+
+					</ul>
 				</div>
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h3 class="panel-title">Menu de Administrador</h3></div>
-					<a href="index.php" class="list-group-item">Página do Morador</a>
-					<a href="newpost.php" class="list-group-item">Nova Mensagem<span class="close glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-					<a href="votacao_admin.php" class="list-group-item">Nova Votação<span class="close glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-					<a href="admin.php" class="list-group-item">Mensagens<span class="close glyphicon glyphicon-comment" aria-hidden="true"></span></a>
-					<a href="#" class="list-group-item">Salão de Festas</a>
-					<a href="#" class="list-group-item">Churrasqueira</a>
-                    <a href="newmsg.php" class="list-group-item active">Sugestões / Reclamações<span class="close glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a>
-                </div>
             </div>
 
+
             <div class="col-md-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Sugestões/Reclamações</h3>
-				</div>
-				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<h4>Sugestões / Reclamações</h4>
+					</div>
+					<div class="panel-body">
+<?php 
+if(isset($_POST['submit'])){
+				$texto = $_POST['resposta'];
+				$id_msg = $_POST['id_msg'];
+				$newcomentario = "INSERT INTO mensagem_resposta (ID, texto, data, id_msg)
+				VALUES (NULL, '$texto', DEFAULT, '$id_msg')";
 				
-				<?php 
-		///licença
-
-	if(isset($_POST['multi'])) 
-		{
-			$multi = $_POST['multi'];
-			$sql = "DELETE FROM mensagem WHERE id= ".$multi."";
-			if (mysqli_query($conn, $sql)) {
-		echo '<div class="alert alert-success alert-dismissable">
+				if (mysqli_query($conn, $newcomentario)) {
+					echo '<br><div class="alert alert-success alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Sucesso!</strong> Mensagem apagada com sucesso.
+  <strong>Sucesso!</strong> Novo comentário criada com sucesso.
 </div>';
-		}}
-		///licença
-	
-?>
-				<?php 
-
-	$check_post = "SELECT id FROM mensagem";
-	$result = mysqli_query($conn,$check_post);
-	$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-	$count = mysqli_num_rows($result);
-	
-	$tituloPost = mysqli_query($conn,"SELECT * FROM mensagem ORDER BY data DESC");
-	
-	$postsnumber = 0;
-	if ($count >= 1){
-	while ($postsnumber < $count){
+				} else {
+					echo '<br><div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Erro!</strong> Houve um erro ao enviar o comentário.
+</div>';
+				}}
+?>					
+<?php 
+	$check_msg = "SELECT id FROM mensagem"; 	//select rows messagem
+	$result = mysqli_query($conn,$check_msg);		//select rows messagem
+	$result = mysqli_num_rows($result);		//select rows messagem	
+	$tituloPost = mysqli_query($conn,"SELECT * FROM mensagem ORDER BY data DESC ");
+	echo '<div class="panel-group">';
+	for($count=0;$count<$result;$count++){
 		$row = mysqli_fetch_row($tituloPost);
-		echo '<div class="panel panel-default">
-				<div class="panel-heading">
+		$resposta = mysqli_query($conn,"SELECT * FROM mensagem_resposta WHERE id_msg='$row[0]' ORDER BY data DESC");
+		if($row[6] == 0){
+		$countr = mysqli_num_rows($resposta);
+		if($countr==0){
+		
+		echo '<div class="panel panel-warning">
+				<div class="panel-heading" role="tab" id="heading'.$row[0].'">
 				<form method="POST" action="'?><?php echo $_SERVER['PHP_SELF']; ?><?php echo '">
-				<button class="close" aria-label="Close" type="submit" name="multi" value="'?><?php echo $row['0'] ?><?php echo '"><span aria-hidden="true">&times;</span></button>
+				<button class="close glyphicon glyphicon-trash" aria-label="Close" type="submit" name="multi" value="'?><?php echo $row['0'] ?><?php echo '"><span aria-hidden="true"></span></button>
 				</form>
 					<h3 class="panel-title">';
-		echo 'Mensagem de: '.$row[4].'<br>';
-		echo 'Sobre: '.$row[1].'<br>';
-		echo 'Assunto: '.$row[2].'<br>';
+		echo '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$row[0].'" aria-expanded="true" aria-controls="collapse'.$row[0].'">';
+		echo 'Assunto: '.$row[2];
+		echo '</a><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>';
 		echo '</h3>
 				  </div>
+				  <div id="collapse'.$row[0].'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$row[0].'">
 				  <div class="panel-body"><p>';
-		echo	$row[3];
-		echo	'</p></div>';
-		echo	'<div class="panel-footer text-right">';
 		$db = $row[5];
 		$timestamp = strtotime($db);
-		echo date("d-m-Y", $timestamp);
-		echo '</div></div>';
-		$postsnumber = $postsnumber + 1;
 		
-	}} ?>
+		echo	'<b>Mensagem:</br></b>'.$row[3].'</br><small class="pull-right">'.strftime("%d de %b de %Y", $timestamp).'</small></br>';
+		//responder messagem	
+		echo '<form method="post">
+			<div class="input-group">
+				<input type="hidden" name="id_msg" value="'.$row[0].'">
+				<input name="resposta" type="text" class="form-control" placeholder="Responder..."required>
+				<span class="input-group-btn">
+				<button class="btn btn-default" type="submit" name="submit">Enviar</button>
+			  </span>
+			</div>
+		</form>';
 
-            </div>	
+//responder messagem
+		
+		
+		echo	'</p></div>';
+//		echo	'<div class="panel-footer text-right">';
+//		$db = $row[5];
+//		$timestamp = strtotime($db);
+//		echo date("d-m-Y", $timestamp);
+//		echo '</div></div>';		
+		echo '</div></div>';		
+	}}}
+	echo '</div>';
+	?>
+					</div>
+				</div>
+            </div>
 			
 			<div class="col-md-3 mbhidden">
-                <div class="panel panel-default">
-                    <a href="#" class="list-group-item">Mensagens<span class="close glyphicon glyphicon-comment" aria-hidden="true"></span></a>
-                    <a href="votacao.php" class="list-group-item">Votações<span class="close glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>
-                    <a href="#" class="list-group-item">Sugestões / Reclamações<span class="close glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a>
-                </div>
+                <!-- coluna da direita-->
             </div>
 
         </div>

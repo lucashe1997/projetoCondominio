@@ -46,7 +46,7 @@
             <div class="col-md-3">
 				<div class="panel panel-body">
 					<ul class="nav nav-pills nav-stacked">
-					<li role="presentation" class="active"><a href="index.php">Inicio<span class="pull-right badge">5</span></a></li>
+					<li role="presentation" class="active"><a href="index.php">Inicio</a></li>
 					<li role="presentation"><a href="index.php">Mensagens<span class="close glyphicon glyphicon-comment" aria-hidden="true"></span></a></li>
 					<li role="presentation"><a href="votacao.php">Votações<span class="close glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a></li>
 					<li role="presentation"><a href="calendario.php">Calendário<span class="close glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
@@ -71,18 +71,7 @@
 			</div>
 
 			<div class="col-md-3">
-				<div class="panel panel-body">
-					<ul class="nav nav-pills nav-stacked">
-					<li role="presentation" class="active"><a href="index.php" class="list-group-item active">Inicio</a></li>
-					<li role="presentation"><a href="index.php">Mensagens<span class="close glyphicon glyphicon-comment" aria-hidden="true"></span></a></li>
-					<li role="presentation"><a href="votacao.php">Votações<span class="close glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a></li>
-					<li role="presentation"><a href="calendario.php">Calendário<span class="close glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
-					<li role="presentation"><a href="#">Salão de Festas</a></li>
-					<li role="presentation"><a href="#">Churrasqueira</a></li>
-					<li role="presentation"><a href="newmsg.php">Sugestões / Reclamações<span class="close glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a></li>
-
-					</ul>
-				</div>
+				<!-- coluna da direita-->
             </div>
         </div>
 

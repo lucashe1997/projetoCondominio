@@ -120,6 +120,19 @@
     </div>
   </div>
 </div>
+			<?php 
+		///apagar mensagem
+	if(isset($_POST['multi'])) 
+		{
+			$multi = $_POST['multi'];
+			$sql = "UPDATE mensagem SET status = '1' WHERE id= ".$multi."";
+			if (mysqli_query($conn, $sql)) {
+		echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Sucesso!</strong> Mensagem apagada com sucesso.
+</div>';
+		}}
+?>
 			<?php include('messages.php')?>
 			
 					</div>
@@ -127,11 +140,7 @@
             </div>
 			
 			<div class="col-md-3 mbhidden">
-                <div class="panel panel-default">
-                    <a href="#" class="list-group-item">Mensagens<span class="close glyphicon glyphicon-comment" aria-hidden="true"></span></a>
-                    <a href="votacao.php" class="list-group-item">Votações<span class="close glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>
-                    <a href="#" class="list-group-item">Sugestões / Reclamações<span class="close glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a>
-                </div>
+                <!-- coluna da direita-->
             </div>
 
         </div>
