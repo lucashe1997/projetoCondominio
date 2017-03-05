@@ -64,7 +64,7 @@
 					<li role="presentation"><a href="index.php">Mensagens<span class="close glyphicon glyphicon-comment" aria-hidden="true"></span></a></li>
 					<li role="presentation" class="active"><a href="votacao.php">Votações<span class="close glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a></li>
 					<li role="presentation"><a href="calendario.php">Calendário<span class="close glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
-					<li role="presentation"><a href="visitantes.php">Visitantes</li>
+					<li role="presentation"><a href="visitantes.php">Visitantes</a></li>
 					<li role="presentation"><a href="#">Salão de Festas</a></li>
 					<li role="presentation"><a href="#">Churrasqueira</a></li>
 					<li role="presentation"><a href="newmsg.php">Sugestões / Reclamações<span class="close glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a></li>
@@ -74,24 +74,11 @@
             </div>
 			
 			<div class="col-md-6">
-				<div class="panel">
-					<div class="panel-heading">
-						<h4>Votações</h4>
-					</div>
-					<div class="panel-body">
-					
 					<?php include('votes.php');?>
-					
-					</div>
-				</div>
 			</div>
 			
 			<div class="col-md-3 mbhidden">
-                <div class="panel panel-default">
-                    <a href="#" class="list-group-item">Mensagens<span class="close glyphicon glyphicon-comment" aria-hidden="true"></span></a>
-                    <a href="votacao.php" class="list-group-item">Votações<span class="close glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>
-                    <a href="#" class="list-group-item">Sugestões / Reclamações<span class="close glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a>
-                </div>
+                <!--coluna da direita-->
             </div>
 
         </div>
@@ -102,7 +89,7 @@
       </div>
     </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 

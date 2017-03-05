@@ -33,7 +33,18 @@
           <a class="navbar-brand"><?php echo $login_session; ?> - Eco One Araucárias</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right mbonly">
+			<li role="presentation" class="active"><a href="index.php">Inicio</a></li>
+			<li role="presentation"><a href="index.php">Mensagens<span class="close glyphicon glyphicon-comment" aria-hidden="true"></span></a></li>
+			<li role="presentation"><a href="votacao.php">Votações<span class="close glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a></li>
+			<li role="presentation"><a href="calendario.php">Calendário<span class="close glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
+			<li role="presentation"><a href="visitantes.php">Visitantes</a></li>
+			<li role="presentation"><a href="#">Salão de Festas</a></li>
+			<li role="presentation"><a href="#">Churrasqueira</a></li>
+			<li role="presentation"><a href="newmsg.php">Sugestões / Reclamações<span class="close glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a></li>
+			<li><a href="logout.php">Sair</a></li>
+          </ul>
+		  <ul class="nav navbar-nav navbar-right mbhidden">
             <li><a href="index.php">Início</a></li>
             <li><a href="#contact">Contatos</a></li>
             <li><a href="#">Configurações</a></li>
@@ -43,7 +54,7 @@
       </div>
     </nav>
     <div class="container">
-            <div class="col-md-3">
+            <div class="col-md-3 mbhidden">
 				<div class="panel panel-body">
 					<ul class="nav nav-pills nav-stacked">
 					<li role="presentation" class="active"><a href="index.php">Inicio</a></li>
@@ -68,11 +79,9 @@
 					<?php include('post.php');?>
 					</div>
 				</div>
+				
 			</div>
 
-			<div class="col-md-3">
-				<!-- coluna da direita-->
-            </div>
         </div>
 
 	<footer class="footer">

@@ -93,7 +93,6 @@
 				echo	'<small class="pull-right">Por: '.$autor[1].', em: ';
 				$db = $row[2];
 				$timestamp = strtotime($db);
-				setlocale(LC_TIME, "pt_BR");
 				echo strftime("%d de %b de %Y", $timestamp);
 				echo '</small></br></div><div class="panel-body">';
 				?>
@@ -143,7 +142,7 @@
 					echo '<div class="panel-body "><p>';
 					if($row[3] == $login_userID){
 						echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'?postid='.$postagemID.'">
-				<button onClick=\'javascript: return confirm("Você quer apagar o comentário?");\' class="close" type="submit" name="multi" value="'.$row['0'].'"><span aria-hidden="true">&times;</span></button>
+				<button onClick=\'javascript: return confirm("Você quer apagar o comentário?");\' class="close" type="submit" name="multi" value="'.$row['0'].'" data-toggle="tooltip" data-placement="top" title="Apagar"><span aria-hidden="true">&times;</span></button>
 				</form>';
 					}
 					echo '<b>'.$rowuser[1].' diz:</br></b>';
@@ -154,7 +153,6 @@
 					echo	'<small class="pull-right">';
 					$db = $row[2];
 					$timestamp = strtotime($db);
-					setlocale(LC_TIME, "pt_BR");
 					echo strftime("%d de %b de %Y", $timestamp);
 					echo '</small></br>';
 					echo '</div></div>';
@@ -174,9 +172,14 @@
         <p class="text-muted text-center">Eco One Araucárias | Desenvolvido por <b><a href="http://facebook.com/luquinhas10">LucasHe </a></b></p>
       </div>
     </footer>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+	<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();   
+	});
+	</script>
   </body>
 </html>

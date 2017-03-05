@@ -1,3 +1,10 @@
+<div class="panel">
+	<div class="panel-heading">
+		<h4>Votações</h4>
+	</div>
+	<div class="panel-body">
+					
+
 <?php
 	if(isset($_POST['submit'])) 
 	{
@@ -33,7 +40,7 @@
 		$can_vote = mysqli_num_rows($can_vote);
 		
 			if($can_vote==0){
-				echo '<div class="panel ">
+				echo '<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">'.$row['titulo'].'</h3></div><div class="panel-body">';
 				
@@ -51,7 +58,7 @@
 				}
 				$db = $row['data'];
 				$timestamp = strtotime($db);
-				echo '<br><button class="btn btn-defaul" type="submit" name="submit" value="'.$row['0'].'">Votar</button></form></div><div class="panel-footer text-right">'.date("d-m-Y", $timestamp).'</div></div>';
+				echo '<br><button class="btn btn-defaul" type="submit" name="submit" value="'.$row['0'].'">Votar</button></form></div><div class="panel-footer text-right">'.strftime("%d de %b de %Y", $timestamp).'</div></div>';
 				
 			}else{echo '<div class="alert alert-success" role="alert">Não há perguntas disponíveis no momento</div>';}
 			
@@ -59,11 +66,13 @@
 	}
 		
 ?>
-				<div class="panel panel-default">
-				  <div class="panel-heading">
-					<h3 class="panel-title">Resultados</h3>
-				  </div>
-				</div>
+	</div>
+</div>
+<div class="panel">
+	<div class="panel-heading">
+		<h4>Resultados</h4>
+	</div>
+	<div class="panel-body">
 
 <?php
 
@@ -90,17 +99,17 @@
 			
 			$total = mysqli_fetch_array($qnt_votos);
 			$total = $total['Total'];
-			$progress = ($row_resp['qnt_votos'] / $total) * 100;
+			$progress = floor(($row_resp['qnt_votos'] / $total) * 100);
 
 			echo $row_resp['opcao'].':<br>';	
-			echo '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width:'.$progress.'%;"> '.$row_resp['qnt_votos'].' Votos </div></div>';
+			echo '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width:'.$progress.'%;"> '.$row_resp['qnt_votos'].' Votos </div></div>';
 		}
 		
 		echo	'</p></div>';
 		echo	'<div class="panel-footer text-right">';
 		$db = $row['data'];
 		$timestamp = strtotime($db);
-		echo date("d-m-Y", $timestamp);
+		echo strftime("%d de %b de %Y", $timestamp);
 		echo '</div></div>';
 	
 	}
@@ -109,3 +118,6 @@
 	}
 		
 ?>
+		</div>
+	</div>
+		

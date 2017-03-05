@@ -15,7 +15,7 @@
 		echo '<div class="panel panel-'.$status.'">
 				<div class="panel-heading" role="tab" id="heading'.$row[0].'">
 				<form method="POST" action="'.$_SERVER['PHP_SELF'].'">
-				<button onClick=\'javascript: return confirm("Você quer apagar a mensagem?");\' class="close glyphicon glyphicon-trash" aria-label="Close" type="submit" name="multi" value="'.$row['0'].'"><span aria-hidden="true"></span></button>
+				<button onClick=\'javascript: return confirm("Você quer apagar a mensagem?");\' class="close" aria-label="Close" type="submit" name="multi" value="'.$row['0'].'"  data-toggle="tooltip" data-placement="top" title="Apagar">&times<span aria-hidden="true"></span></button>
 				</form>
 					<h3 class="panel-title">';
 		echo '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$row[0].'" aria-expanded="true" aria-controls="collapse'.$row[0].'">';
